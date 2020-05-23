@@ -1,0 +1,34 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: 'zuul_gateway_service'
+
+zuul:
+  routes:
+    desk:
+      path: /places/**
+      serviceId: desk_service
+    restaurant:
+      path: /restaurant/**
+      serviceId: restaurant_service
+
+ribbon:
+  ConnectTimeout: 10000
+  ReadTimeout: 30000
+
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+
+eureka:
+  client:
+    service-url:
+      defaultZone: 'http://localhost:9000/eureka'
+  instance:
+    prefer-ip-address: true
